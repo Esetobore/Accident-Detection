@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login"
+    android:background="@color/appTheme2"
     android:orientation="vertical"
     tools:context=".Firebase.LoginActivity">
 
@@ -13,46 +13,20 @@
         android:layout_gravity="center"
         android:id="@+id/topGraphic"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="200dp"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <ImageView
-                android:background="@drawable/map_marker"
-                android:layout_width="50dp"
-                android:layout_height="50dp">
+                android:layout_marginStart="75dp"
+                android:background="@drawable/accdec_logo"
+                android:layout_width="250dp"
+                android:layout_height="200dp">
 
             </ImageView>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_regular"
-                android:text="ACC"
-                android:textColor="@color/white"
 
-                android:textSize="47sp">
-
-            </TextView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_bold"
-                android:text="SAFE"
-                android:textColor="@color/ms_deep_blue"
-                android:textSize="47sp"
-                android:textStyle="bold">
-
-            </TextView>
-
-        </LinearLayout>
 
     </LinearLayout>
 
@@ -77,6 +51,7 @@
                 android:layout_marginBottom="23dp"
                 android:fontFamily="@font/inter_bold"
                 android:text="Login"
+                android:layout_centerHorizontal="true"
                 android:textColor="@color/ms_deep_blue"
                 android:textSize="25sp">
 
@@ -90,6 +65,8 @@
                 android:ems="10"
                 android:fontFamily="@font/inter_regular"
                 android:hint="Email"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
                 android:inputType="textPersonName"
                 tools:ignore="TextFields" />
 
@@ -100,18 +77,22 @@
                 android:layout_height="70dp"
                 android:layout_below="@+id/txt_email_login"
                 android:ems="10"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/inter_regular"
                 android:hint="Password"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
                 android:inputType="textPassword"
                 app:endIconMode="password_toggle" />
 
             <ProgressBar
                 android:id="@+id/p_bar"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_above="@id/btn_login"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="25dp"
+                android:visibility="invisible"
                 app:tint="@color/ms_deep_blue" />
 
             <Button

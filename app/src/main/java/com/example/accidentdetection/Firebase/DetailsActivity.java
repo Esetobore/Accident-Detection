@@ -9,10 +9,11 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -54,14 +55,17 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView count_text;
     private ImageView profile_img;
     private EditText text_name;
+    private EditText contact;
     private EditText text_age;
     private TextView text_contactCounter;
     private EditText text_sex;
-    private List<String> contacts;
+    public List<String> contacts;
     static  int count =0;
     private Uri uri;
 
     private HashMap<String,String>map;
+
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +84,7 @@ public class DetailsActivity extends AppCompatActivity {
         count_text =  findViewById(R.id.Contact_counter_text);
         profile_img =  findViewById(R.id.profile_pic);
         text_name =   findViewById(R.id.Name_text);
+        contact = findViewById(R.id.phoneNumber);
         text_age =  findViewById(R.id.Age_text);
         text_sex = findViewById(R.id.Sex_text);
         text_contactCounter  = findViewById(R.id.Contact_counter_text);
@@ -92,11 +97,13 @@ public class DetailsActivity extends AppCompatActivity {
         //------------------------------------------------------------------------------------
         saveDetails_btn.setOnClickListener(view -> {
             saveDetails();
+
         });
     }
 
     private  void getContacts(){
         requestContactsPermission();
+
 
         final Intent pickContact = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         updateButton(hasContactsPermission());
@@ -119,6 +126,10 @@ public class DetailsActivity extends AppCompatActivity {
         startActivityForResult(pickContact,REQUEST_CONTACT);
     }
 
+
+
+
+
     private void saveDetails() {
         ProgressBar progressBar = findViewById(R.id.p_bar_2);
         progressBar.setVisibility(View.VISIBLE);
@@ -126,6 +137,7 @@ public class DetailsActivity extends AppCompatActivity {
         String name =  text_name.getText().toString().trim();
         String age =   text_age.getText().toString().trim();
         String sex =   text_sex.getText().toString().trim();
+        String myPhoneNumber = contact.getText().toString().trim();
         String imgPath ="";
         String imgUrl = "";
         if(name.length() == 0){
@@ -146,9 +158,9 @@ public class DetailsActivity extends AppCompatActivity {
             text_age.setError("enter an integer");
             return;
         }
-        if(contacts.size()==0){
-            text_contactCounter.setError("minimum 1 number needed");
-            return;
+
+        if (myPhoneNumber.length()!=11){
+            contact.setError("check your number");
         }
 
 
@@ -176,7 +188,8 @@ public class DetailsActivity extends AppCompatActivity {
         map.put("Name",name);
         map.put("Age",age);
         map.put("Sex",sex);
-        map.put("contacts",contacts);
+        map.put("EMC",myPhoneNumber);
+
 
         firebaseFirestore.collection("User").document(UID).set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

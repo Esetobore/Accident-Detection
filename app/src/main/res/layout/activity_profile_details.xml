@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
+    android:background="@color/appTheme2"
     tools:context=".Firebase.ProfileDetailsActivity">
 
     <ImageView
@@ -24,7 +25,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
         android:elevation="5dp"
-        android:src="@drawable/kokonod" />
+        android:src="@drawable/testiamge" />
 
     <LinearLayout
         android:layout_below="@id/profile_image_d"
@@ -105,7 +106,29 @@
             android:textSize="25sp">
         </TextView>
 
+        <TextView
+            android:id="@+id/Emergency_Contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_below="@id/profile_sex_d"
+            android:fontFamily="@font/inter_bold"
+            android:text="Emergency Contact"
+            android:textColor="@color/ms_blue"
+            android:textSize="21sp">
+        </TextView>
 
+        <TextView
+            android:id="@+id/Emergency_Contact_D"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/Emergency_Contact"
+            android:fontFamily="@font/inter_regular"
+            android:text="Emc"
+            android:textColor="@color/ms_deep_blue"
+            android:textSize="25sp">
+        </TextView>
     </LinearLayout>
 
     <Button

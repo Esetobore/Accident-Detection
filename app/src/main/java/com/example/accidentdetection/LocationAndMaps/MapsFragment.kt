@@ -27,38 +27,20 @@ class MapsFragment : Fragment() ,LocationListener,OnMapReadyCallback,LocationSou
     lateinit var userLocationMarker :Marker
 
 
-//    private val callback = OnMapReadyCallback { googleMap ->
-//
-//        //val sydney = LatLng(-34.0, 151.0)
-//        val lt=Vals.lati
-//        val lg = Vals.longi
-//        val techno = LatLng(lt ,lg)
-//        //Toast.makeText(context,lt.toString() + lg.toString(),Toast.LENGTH_SHORT).show()
-//
-////        googleMap.addMarker(MarkerOptions().position(techno).title("Me"))
-////        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(techno,17f))
-////        Toast.makeText(context,Vals.lati.toString(), Toast.LENGTH_SHORT).show()
-//
-//
-//
-////        val markerOptions = MarkerOptions().position(LatLng(lt,lg))
-////        googleMap.addMarker(markerOptions)
-////        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(techno,17f))
-//
-//
-//
-//    }
+
 
     override fun onMapReady(googleMap: GoogleMap) {
-        val lt=Vals.lati
+
+//        googleMap.isMyLocationEnabled
+        val lt = Vals.lati
         val lg = Vals.longi
-        val techno = LatLng(lt ,lg)
+        val techno = LatLng(lt, lg)
         val markerOptions = MarkerOptions().position(techno).title("Me")
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_ac))
         userLocationMarker = googleMap.addMarker(markerOptions)!!
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(techno,17f))
-
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(techno, 17f))
         startCurrentLocationUpdates(googleMap)
+
 
     }
 
@@ -70,14 +52,10 @@ class MapsFragment : Fragment() ,LocationListener,OnMapReadyCallback,LocationSou
                 .setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY)
 
 
-        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
             return
         }
         fusedLocationProviderClient.requestLocationUpdates(
@@ -93,8 +71,8 @@ class MapsFragment : Fragment() ,LocationListener,OnMapReadyCallback,LocationSou
 
                             if(userLocationMarker == null){
                                  //create new marker
-                                     val markerOptions = MarkerOptions().position(latlng).title("Me")
-                                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.kokonod))
+                                val markerOptions = MarkerOptions().position(latlng).title("Me")
+                                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_ac))
                                 markerOptions.rotation(location.bearing)
                                 markerOptions.anchorU
                                 markerOptions.anchorV
@@ -124,13 +102,17 @@ class MapsFragment : Fragment() ,LocationListener,OnMapReadyCallback,LocationSou
         savedInstanceState: Bundle?
     ): View? {
 
-//        val supportMapFragment : SupportMapFragment = childFragmentManager.findFragmentById(R.id.myMapView) as SupportMapFragment
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment?.onCreate(savedInstanceState)
+        mapFragment?.onResume()
         mapFragment?.getMapAsync(this)
     }
 
@@ -138,20 +120,10 @@ class MapsFragment : Fragment() ,LocationListener,OnMapReadyCallback,LocationSou
     override fun onLocationChanged(location: Location) {
         location.latitude=Vals.lati
         location.longitude=Vals.longi
-//        setUserLocationMarker(location)
     }
 
 
 
-//    fun setUserLocationMarker(location: Location){
-//
-//
-//
-////        val latlng = LatLng(location.latitude,location.longitude)
-////        val markerOptions = MarkerOptions()
-////        markerOptions.position(latlng)
-////        userLocationMarker = googleMap.addMarker(markerOptions)!!
-////        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,17f))
-//    }
+
 
 }

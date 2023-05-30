@@ -40,11 +40,13 @@ class ProfileDetailsActivity : AppCompatActivity() {
 
     }
 
+
     private fun loadProfileDetails(){
         val auth = FirebaseAuth.getInstance()
         val nameTxt : TextView = findViewById(R.id.profile_username_d)
         val ageTxt : TextView = findViewById(R.id.profile_age_d)
         val sexTxt :  TextView = findViewById(R.id.profile_sex_d)
+        val emcTxt :  TextView = findViewById(R.id.Emergency_Contact_D)
         val usrProfilePic : ImageView = findViewById(R.id.profile_image_d)
 
         //cloud firestore
@@ -56,9 +58,11 @@ class ProfileDetailsActivity : AppCompatActivity() {
                     val usrName = document.get("Name")
                     val usrAge = document.get("Age")
                     val usrSex = document.get("Sex")
+                    val emcFB = document.get("EMC")
                     nameTxt.text= usrName.toString()
                     ageTxt.text=usrAge.toString()
                     sexTxt.text=usrSex.toString()
+                    emcTxt.text = emcFB.toString()
                 }
                 else {
                     Log.d("FIRESTORE", "No such document")

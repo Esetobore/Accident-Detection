@@ -3,7 +3,6 @@ package com.example.accidentdetection
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -12,6 +11,7 @@ import android.hardware.SensorManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.*
+import android.telephony.SmsManager
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -25,10 +25,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.os.postDelayed
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.bumptech.glide.Glide
 import com.example.accidentdetection.AlertSystem.Distance
 import com.example.accidentdetection.Firebase.ProfileDetailsActivity
 import com.example.accidentdetection.LocationAndMaps.MapsFragment
@@ -42,11 +40,8 @@ import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import com.squareup.picasso.Picasso
-import org.w3c.dom.Text
 import java.io.File
 import java.util.*
-import kotlin.concurrent.thread
 
 @Suppress("DEPRECATION", "DeferredResultUnused")
 class MainActivity : AppCompatActivity(), SensorEventListener {
@@ -62,8 +57,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     var lastUpdatedLat : Double =0.0
     var lastUpdatedLong : Double=0.0
 
-    private lateinit var ameter : Sensor
-    private lateinit var gmeter : Sensor
+    private var ameter : Sensor? = null
+    private var gmeter : Sensor? = null
 
     lateinit var countDownTimer: CountDownTimer
     internal val initialCountDown : Long = 20000
@@ -81,11 +76,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var permissionLauncher : ActivityResultLauncher<Array<String>>
     private var isSendSmsPermissionGranted = false
 
-//    lateinit var countDownTimer: CountDownTimer
-//    internal val initialCountDown : Long = 15000
-//    internal val countDownInterval : Long = 1000
-//    internal var countOn : Boolean = false
-//    internal var counting =0
 
 
     companion object{
@@ -118,7 +108,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         //start sensor activity
         setUpSensor()
-        //load google maps locaiton
+        //load google maps location
         loadMap()
 
 
@@ -126,11 +116,11 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         loadUserDetails()
 
         //profile pic
-//        val pp : ImageView =  findViewById(R.id.profile_image)
-//        pp.setOnClickListener {
-//            val intent =Intent(this,ProfileDetailsActivity::class.java)
-//            startActivity(intent)
-//        }
+        val pp : ImageView =  findViewById(R.id.profile_image)
+        pp.setOnClickListener {
+            val intent =Intent(this,ProfileDetailsActivity::class.java)
+            startActivity(intent)
+        }
 
         //SMS permission
         sendSms().checkSmsPermission(this)
@@ -158,13 +148,13 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private fun setUpSensor() {
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
 
-        ameter = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.also {
+        ameter = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER).also {
             sensorManager.registerListener(this,it,SensorManager.SENSOR_DELAY_UI,SensorManager.SENSOR_DELAY_UI)
-        }!!
+        }
 
-        gmeter = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)?.also {
+        gmeter = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE).also {
             sensorManager.registerListener(this,it,SensorManager.SENSOR_DELAY_UI)
-        }!!
+        }
 
     }
 
@@ -230,7 +220,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     //Code For launching Dialog Box
     private fun stopListening(){
-        if(isDialogBoxLaunched == false){
+        if(!isDialogBoxLaunched){
             sensorManager.unregisterListener(this,ameter)
             sensorManager.unregisterListener(this,gmeter)
             launchDialogBox()
@@ -261,8 +251,34 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             sendSms().sendSms(this,lastUpdatedLocation,lastUpdatedLat,lastUpdatedLong)
             countOn=false
             mAlertDialog.dismiss()
+            fireBaseNumber()
         }
 
+    }
+    fun fireBaseNumber() {
+        // Get the current user from Firebase Authentication
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val fireStore = FirebaseFirestore.getInstance()
+        val uid = firebaseAuth.uid
+        if (uid != null) {
+            fireStore.collection("User").document(uid).get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        val phoneNumberFB = document.getString("EMC")
+                        val message = "Hello, this is a test SMS."
+                        val smsManager = SmsManager.getDefault()
+                        val mapLink =
+                            ("https://www.google.com/maps/search/?api=1&query=" + lastUpdatedLat.toString()
+                                    + "," + lastUpdatedLong.toString())
+                        smsManager.sendTextMessage(
+                            phoneNumberFB, null, mapLink.toString(),
+                            null, null
+                        )
+                    } else {
+                        Log.d("FIRESTORE", "No such document")
+                    }
+                }
+        }
     }
 
 
@@ -305,12 +321,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
 
 
-
-
     //Code - Maps
 
     private fun loadMap(){
-        //check Locaiton Permission
+        //check Location Permission
         when {
             PermissionUtils.isAccessFineLocationGranted(this) -> {
                 when {
@@ -345,18 +359,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         //gets location every 4 minutes
-        val locationRequest = LocationRequest().setInterval(3000).setFastestInterval(3000)
-            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+        val locationRequest = LocationRequest().setInterval(2000).setFastestInterval(2000).
+        setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
 
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
             return
         }
         setUpFragment()
@@ -398,27 +408,13 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                             }
                         }
 
-//                        val speedHrit = if (location.hasSpeed()) {
-//                            location.speed
-//                        } else {
-//                            previousLocation?.let { lastLocation ->
-//                                // Convert milliseconds to seconds
-//                                val elapsedTimeInSeconds = (location.time - lastLocation.time) / 1_000
-//                                val distanceInMeters = lastLocation.distanceTo(location)
-//                                // Speed in m/s
-//                                (distanceInMeters / elapsedTimeInSeconds)*3.6
-//                            } ?: 0.0
-//                        }
-//                        previousLocation = location
-
-
 
                         runOnUiThread {
                             lat.text = location.latitude.toString()
                             long.text = location.longitude.toString()
                             loc.text= lastUpdatedLocation.toString()
                             alertSystem(Vals.lati,Vals.longi)
-                            speedMeter.text= "${speedHrit.toString()}"
+                            speedMeter.text= speedHrit.toString()
                             speedProgressBar.progress=(speedHrit*0.55).toInt()
                         }
 
@@ -426,17 +422,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                         lastUpdatedLong=location.longitude
 
 
-//                        if(MapsFragment().googleMap != null){
-//                            MapsFragment().setUserLocationMarker(locationResult.lastLocation)
-//                        }
                         locationRes=locationResult.lastLocation
 
 
-//                        setUpFragment()
 
                     }
-                    // Few more things we can do here:
-                    // For example: Update the location of user on server
+
                 }
             },
             handlerThread.looper
@@ -444,6 +435,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
 
     }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -478,11 +470,11 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         var cityName=""
         var geoCoder = Geocoder(this, Locale.getDefault())
         var address = geoCoder.getFromLocation(lat,long,3)
-        var area = address.get(0).getAddressLine(0).toString()
-        var city = address.get(0).locality
-        var state = address.get(0).adminArea
-        var postalCode = address.get(0).postalCode
-        var knownName = address.get(0).featureName
+        var area = address[0].getAddressLine(0).toString()
+        var city = address[0].locality
+        var state = address[0].adminArea
+        var postalCode = address[0].postalCode
+        var knownName = address[0].featureName
 
         cityName = area + ","+city+","+state+","+postalCode+","+knownName
         return cityName
@@ -495,7 +487,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             if(check == true){
                 val my = Toast(this)
                 my.apply {
-                    val layout : View = LinearLayout.inflate(applicationContext,R.layout.custom_toast_accident_alert,null)
+                    val layout : View = LinearLayout.inflate(applicationContext,
+                        R.layout.custom_toast_accident_alert,null)
                     duration=Toast.LENGTH_SHORT
                     setGravity(Gravity.TOP,0,0)
                     view=layout

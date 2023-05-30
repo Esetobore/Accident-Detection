@@ -1,62 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--    This is the root element of the XML file and specifies the layout of the Welcome Activity.-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg_main"
+    android:background="@color/appTheme2"
     tools:context=".Firebase.WelcomeActivity">
 
-    <LinearLayout
-        android:id="@+id/title"
-        android:layout_marginTop="70dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
+<!--app name and logo-->
         <ImageView
+            android:id="@+id/title"
             android:layout_marginTop="10dp"
-            android:background="@drawable/map_marker"
-            android:layout_width="40dp"
-            android:layout_height="40dp">
+            android:background="@drawable/accdec_logo"
+            android:layout_width="305dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="220dp">
 
         </ImageView>
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_regular"
-            android:text="ACC"
-            android:textColor="@color/white"
-            android:textSize="42sp">
-
-        </TextView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_bold"
-            android:text="SAFE"
-            android:textColor="@color/ms_blue"
-            android:textSize="42sp"
-            android:textStyle="bold">
-
-        </TextView>
-
-    </LinearLayout>
-
+<!--Car image-->
     <ImageView
         android:layout_width="305dp"
-        android:layout_height="360dp"
+        android:layout_height="280dp"
         android:layout_below="@id/title"
         android:layout_centerInParent="true"
         android:background="@drawable/car_logo">
 
     </ImageView>
-
+    <!--Button to proceed to the login activity-->
     <Button
         android:id="@+id/btn_login_w"
         android:layout_width="match_parent"
@@ -72,7 +46,7 @@
         android:textSize="19sp"
         app:backgroundTint="@color/white" />
 
-
+<!--Button to proceed to the signup activity-->
     <Button
         android:id="@+id/btn_signup_w"
         android:layout_width="match_parent"
@@ -87,8 +61,5 @@
         android:textColor="@color/white"
         android:textSize="19sp"
         app:backgroundTint="@color/ms_blue" />
-
-
-
 
 </RelativeLayout>
