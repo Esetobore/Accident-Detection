@@ -73,38 +73,32 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                fAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            //verify
-                            ProgressBar progressBar= findViewById(R.id.p_bar);
-                            FirebaseUser  user =  fAuth.getCurrentUser();
-                            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        progressBar.setVisibility(View.INVISIBLE);
-                                        Toast.makeText(RegisterActivity.this,"Email verification mail has been sent",Toast.LENGTH_SHORT).show();
-                                    }
-                                    else{
-                                        Toast.makeText(RegisterActivity.this,"Email not sent check your email",Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
+                fAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        //verify
+                        ProgressBar progressBar= findViewById(R.id.p_bar);
+                        FirebaseUser  user =  fAuth.getCurrentUser();
+                        user.sendEmailVerification().addOnCompleteListener(task1 -> {
+                            if(task1.isSuccessful()){
+                                progressBar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(RegisterActivity.this,"Email verification mail has been sent",Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(RegisterActivity.this,"Email not sent check your email",Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
-                            //registeredg
+                        //registeredg
 //                            if(!user.isEmailVerified()){
 //                                Toast.makeText(Register.this,"verify your email check mail",Toast.LENGTH_SHORT).show();
 //                            }
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(RegisterActivity.this,"User Registered and logged in",Toast.LENGTH_SHORT).show();
-                            Toast.makeText(RegisterActivity.this,"verify your email check mail",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), DetailsActivity.class));
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(RegisterActivity.this,"User Registered and logged in",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this,"verify your email check mail",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), DetailsActivity.class));
 
-                        }else
-                            Toast.makeText(RegisterActivity.this,"User not registered",Toast.LENGTH_SHORT).show();
-                    }
+                    }else
+                        Toast.makeText(RegisterActivity.this,"User not registered",Toast.LENGTH_SHORT).show();
                 });
 
             }

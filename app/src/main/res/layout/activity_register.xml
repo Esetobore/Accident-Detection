@@ -101,7 +101,7 @@
                 android:textColorHint="@color/black"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/inter_regular"
-                android:hint="Phone Number"
+                android:hint="Phone Number: 080"
                 android:inputType="textPersonName" />
 
             <ProgressBar

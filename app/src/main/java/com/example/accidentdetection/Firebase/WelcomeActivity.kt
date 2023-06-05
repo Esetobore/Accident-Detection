@@ -21,8 +21,7 @@ class WelcomeActivity : AppCompatActivity() {
         }
 
         signupBTN.setOnClickListener {
-            val intent = Intent(this,RegisterActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this,RegistrationActivity::class.java))
             finish()
         }
     }

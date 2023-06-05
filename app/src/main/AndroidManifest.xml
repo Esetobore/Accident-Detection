@@ -21,6 +21,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SensorTest">
         <activity
+            android:name=".RegistraationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Register"
+            android:exported="false"
+            android:label="@string/title_activity_register"
+            android:theme="@style/Theme.SensorTest.NoActionBar" />
+        <activity
             android:name=".Firebase.ProfileDetailsActivity"
             android:exported="false" />
         <activity
@@ -40,7 +48,7 @@
             android:exported="true" />
         <activity
             android:name=".Firebase.LoginActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
@@ -48,9 +56,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
-
-
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -61,9 +66,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAdIUPEDCVHDM_qwIhjXeBA1In8Da3FBy1" />
-
-
+            android:value="AIzaSyAdIUPEDCVHDM_QwIhjXeBA1In8Da3FByw" />
     </application>
 
 </manifest>
