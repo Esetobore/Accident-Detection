@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.accidentdetection.LocationAndMaps.Vals.Companion.auth
 import com.example.accidentdetection.LocationAndMaps.Vals.Companion.currUser
+import com.example.accidentdetection.LocationAndMaps.Vals.Utils.checkEmpty
 import com.example.accidentdetection.LocationAndMaps.Vals.Utils.showToastLong
 import com.example.accidentdetection.LocationAndMaps.Vals.Utils.showToastShort
 import com.example.accidentdetection.R
@@ -71,11 +72,11 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkEmpty(s: String, et: EditText): Boolean {
-        if (TextUtils.isEmpty(s)) {
-            et.error = "This can't be Empty"
-            return true
-        }
-        return false
-    }
+//    fun checkEmpty(s: String, et: EditText): Boolean {
+//        if (TextUtils.isEmpty(s)) {
+//            et.error = "This can't be Empty"
+//            return true
+//        }
+//        return false
+//    }
 }

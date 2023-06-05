@@ -1,6 +1,8 @@
 package com.example.accidentdetection.LocationAndMaps
 
 import android.content.Context
+import android.text.TextUtils
+import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 
@@ -19,6 +21,13 @@ class Vals {
         }
         fun showToastShort(mContext: Context?, message: String?) {
             Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+        }
+        fun checkEmpty(s: String, et: EditText): Boolean {
+            if (TextUtils.isEmpty(s)) {
+                et.error = "This can't be Empty"
+                return true
+            }
+            return false
         }
     }
 

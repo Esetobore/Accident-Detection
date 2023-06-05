@@ -21,6 +21,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SensorTest">
         <activity
+            android:name=".ResetPassword"
+            android:exported="false" />
+        <activity
+            android:name=".Login"
+            android:exported="false" />
+        <activity
             android:name=".RegistraationActivity"
             android:exported="false" />
         <activity
