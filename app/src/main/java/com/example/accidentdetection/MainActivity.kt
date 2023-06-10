@@ -30,8 +30,8 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.accidentdetection.AlertSystem.Distance
 import com.example.accidentdetection.Firebase.ProfileDetailsActivity
 import com.example.accidentdetection.LocationAndMaps.MapsFragment
-import com.example.accidentdetection.LocationAndMaps.PermissionUtils
-import com.example.accidentdetection.LocationAndMaps.Vals
+import com.example.accidentdetection.Utils.PermissionUtils
+import com.example.accidentdetection.Utils.Vals
 import com.example.accidentdetection.SMS.sendSms
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -413,7 +413,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                             lat.text = location.latitude.toString()
                             long.text = location.longitude.toString()
                             loc.text= lastUpdatedLocation.toString()
-                            alertSystem(Vals.lati,Vals.longi)
+                            alertSystem(Vals.lati, Vals.longi)
                             speedMeter.text= speedHrit.toString()
                             speedProgressBar.progress=(speedHrit*0.55).toInt()
                         }

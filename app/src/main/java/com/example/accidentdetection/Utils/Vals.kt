@@ -1,10 +1,12 @@
-package com.example.accidentdetection.LocationAndMaps
+package com.example.accidentdetection.Utils
 
 import android.content.Context
 import android.text.TextUtils
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 
 class Vals {
 
@@ -12,8 +14,9 @@ class Vals {
         public var lati : Double=0.0
         public var longi : Double=0.0
 
-        var auth = FirebaseAuth.getInstance()
-        var currUser = auth.currentUser!!
+        var authFirebase = FirebaseAuth.getInstance()
+        var currUser = authFirebase.currentUser?.uid
+        val storageFirebase = FirebaseStorage.getInstance().getReference("profilePicUploads")
     }
     object Utils {
         fun showToastLong(mContext: Context?, message: String?) {

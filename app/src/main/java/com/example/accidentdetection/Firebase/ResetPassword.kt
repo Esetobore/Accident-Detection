@@ -3,11 +3,10 @@ package com.example.accidentdetection.Firebase
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.accidentdetection.LocationAndMaps.Vals
-import com.example.accidentdetection.LocationAndMaps.Vals.Utils.showToastLong
-import com.example.accidentdetection.LocationAndMaps.Vals.Utils.showToastShort
+import com.example.accidentdetection.Utils.Vals
+import com.example.accidentdetection.Utils.Vals.Utils.showToastLong
+import com.example.accidentdetection.Utils.Vals.Utils.showToastShort
 import com.example.accidentdetection.R
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_reset_password.*
 
 class ResetPassword : AppCompatActivity() {
@@ -24,7 +23,7 @@ class ResetPassword : AppCompatActivity() {
     }
     private fun forgottenPass() {
         val emailFor = email_editText_reset.text.toString().trim()
-        Vals.auth.sendPasswordResetEmail(emailFor)
+        Vals.authFirebase.sendPasswordResetEmail(emailFor)
             .addOnSuccessListener {
                 showToastShort(this, "Reset mail sent")
             }

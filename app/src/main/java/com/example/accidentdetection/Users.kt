@@ -1,9 +1,9 @@
 package com.example.accidentdetection
 
-data class Users(val firstname: String?= null,
-                 val lastname:String?= null,
+data class Users(val fullName: String?= null,
                  val email: String? = null,
                  val age:String?= null,
-                 val phoneNumber:String?= null
+                 val sex:String?= null,
+                 val EMC:String?= null
 
 )

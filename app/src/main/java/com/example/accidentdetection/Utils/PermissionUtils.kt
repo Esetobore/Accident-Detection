@@ -1,4 +1,4 @@
-package com.example.accidentdetection.LocationAndMaps
+package com.example.accidentdetection.Utils
 
 import android.Manifest
 import android.app.AlertDialog

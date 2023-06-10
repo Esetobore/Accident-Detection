@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.accidentdetection.R
+import com.example.accidentdetection.Utils.Vals
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
@@ -118,8 +119,8 @@ class MapsFragment : Fragment() ,LocationListener,OnMapReadyCallback,LocationSou
 
 
     override fun onLocationChanged(location: Location) {
-        location.latitude=Vals.lati
-        location.longitude=Vals.longi
+        location.latitude= Vals.lati
+        location.longitude= Vals.longi
     }
 
 

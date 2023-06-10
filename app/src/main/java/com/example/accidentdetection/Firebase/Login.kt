@@ -4,11 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.bumptech.glide.load.engine.executor.GlideExecutor.UncaughtThrowableStrategy.LOG
-import com.example.accidentdetection.LocationAndMaps.Vals.Companion.auth
-import com.example.accidentdetection.LocationAndMaps.Vals.Utils.checkEmpty
-import com.example.accidentdetection.LocationAndMaps.Vals.Utils.showToastLong
-import com.example.accidentdetection.LocationAndMaps.Vals.Utils.showToastShort
+import com.example.accidentdetection.Utils.Vals.Companion.authFirebase
+import com.example.accidentdetection.Utils.Vals.Utils.showToastLong
+import com.example.accidentdetection.Utils.Vals.Utils.showToastShort
 import com.example.accidentdetection.MainActivity
 import com.example.accidentdetection.R
 import kotlinx.android.synthetic.main.activity_login.*
@@ -43,7 +41,7 @@ class Login : AppCompatActivity() {
             txt_password_login.error = "Enter Password"
             return
         }
-        auth.signInWithEmailAndPassword(email,password)
+        authFirebase.signInWithEmailAndPassword(email,password)
             .addOnSuccessListener {
                 showToastShort(this,"Login Successful!")
                 startActivity(Intent(this, MainActivity::class.java))
