@@ -17,9 +17,8 @@ The Accident Detection Mobile Application is an Android app developed to prevent
 
 ## APP Links
 **Check Challenges before proceed**
-* Website preview(Appetize.io) of Apk: <a href="">ACCDET</a>
-* Android: [ACCDET.zip](https://github.com/Esetobore/AccidentDetection/files/11604313/ACCDET.zip)
-
+* Website preview(Appetize.io) of Apk: <a href="https://appetize.io/app/ck6swe6bxn363eiujksxqfe43u">ACCDET</a>
+* Android:[ACCDET.zip](https://github.com/Esetobore/Accident-Detection/files/11725355/ACCDET.zip)
 
 
 ## How to Run the app
