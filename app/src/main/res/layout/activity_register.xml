@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/appTheme2"
     android:orientation="vertical"
-    tools:context=".Firebase.RegisterActivity">
+    tools:context=".Firebase.RegistrationActivity">
 
             <ImageView
                 android:layout_marginStart="70dp"
@@ -43,24 +43,11 @@
 
 
             <EditText
-                android:id="@+id/txt_name"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_below="@id/registerDis"
-                android:ems="10"
-                android:fontFamily="@font/inter_regular"
-                android:hint="Full Name"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                android:inputType="textPersonName" />
-
-            <EditText
                 android:id="@+id/txt_email"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:fontFamily="@font/inter_regular"
-                android:layout_below="@id/txt_name"
+                android:layout_below="@id/registerDis"
                 android:ems="10"
                 android:hint="Email"
                 android:textColor="@color/black"
@@ -92,25 +79,12 @@
                 android:hint="Confirm Password"
                 android:inputType="textPassword" />
 
-            <EditText
-                android:visibility="gone"
-                android:id="@+id/txt_phone"
-                android:layout_width="372dp"
-                android:layout_height="70dp"
-                android:layout_below="@id/txt_confirm_password"
-                android:ems="10"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/inter_regular"
-                android:hint="Phone Number: 080"
-                android:inputType="textPersonName" />
 
             <ProgressBar
                 android:id="@+id/p_bar"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_below="@id/txt_phone"
+                android:layout_below="@id/txt_confirm_password"
                 android:layout_centerHorizontal="true"
                 android:visibility="invisible"
                 android:layout_marginTop="15dp"

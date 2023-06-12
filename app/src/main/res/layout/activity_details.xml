@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/appTheme1"
     android:orientation="vertical"
-    tools:context=".Firebase.DetailsActivity">
+    tools:context=".Firebase.UserDetails">
 
 
     <LinearLayout
@@ -48,7 +48,7 @@
                 android:background="@drawable/profile_avatar" />
 
             <EditText
-                android:id="@+id/Name_text"
+                android:id="@+id/Name_user_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/btn_addImage"
@@ -61,10 +61,10 @@
                 android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/Age_text"
+                android:id="@+id/Age_user_details"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:layout_below="@id/Name_text"
+                android:layout_below="@id/Name_user_details"
                 android:layout_marginTop="10dp"
                 android:ems="10"
                 android:fontFamily="@font/inter_regular"
@@ -74,10 +74,10 @@
                 android:inputType="number" />
 
             <EditText
-                android:id="@+id/Sex_text"
+                android:id="@+id/Sex_user_details"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:layout_below="@id/Age_text"
+                android:layout_below="@id/Age_user_details"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/inter_regular"
                 android:ems="10"
@@ -86,10 +86,10 @@
                 android:hint="Sex"
                 android:inputType="textCapCharacters" />
             <EditText
-                android:id="@+id/phoneNumber"
+                android:id="@+id/phoneNumber_user_details"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:layout_below="@id/Sex_text"
+                android:layout_below="@id/Sex_user_details"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/inter_regular"
                 android:ems="10"
@@ -103,7 +103,7 @@
                 style="@style/Widget.MaterialComponents.Button.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_below="@id/phoneNumber"
+                android:layout_below="@id/phoneNumber_user_details"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:visibility="gone"

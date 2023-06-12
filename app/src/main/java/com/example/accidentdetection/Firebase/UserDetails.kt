@@ -33,21 +33,21 @@ class UserDetails : AppCompatActivity() {
         }
     }
     private fun saveAllDetails(){
-        val fullName = Name_text.text.toString().trim()
-        val age = Age_text.text.toString().trim()
-        val sex = Sex_text.text.toString().trim()
-        val EMC = phoneNumber.text.toString().trim()
+        val fullName = Name_user_details.text.toString().trim()
+        val age = Age_user_details.text.toString().trim()
+        val sex = Sex_user_details.text.toString().trim()
+        val EMC = phoneNumber_user_details.text.toString().trim()
 
         if (fullName.isEmpty()){
-            Name_text.error = "Enter Name"
+            Name_user_details.error = "Enter Name"
             return
         }
         if (sex.length !=1){
-            Sex_text.error = "Enter M or F"
+            Sex_user_details.error = "Enter M or F"
             return
         }
         if (EMC.length != 11) {
-            phoneNumber.error = "check your number"
+            phoneNumber_user_details.error = "check your number"
         }
         val user = Users(fullName = fullName, age = age, sex = sex, EMC = EMC)
 

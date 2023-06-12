@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.accidentdetection.Utils.Vals.Companion.authFirebase
-import com.example.accidentdetection.Utils.Vals.Companion.currUser
 import com.example.accidentdetection.Utils.Vals.Utils.checkEmpty
 import com.example.accidentdetection.Utils.Vals.Utils.showToastShort
 import com.example.accidentdetection.R
@@ -19,9 +18,8 @@ class RegistrationActivity : AppCompatActivity() {
         btn_register.setOnClickListener {
             register()
         }
-        btn_login.setOnClickListener {
-            startActivity(Intent(this,LoginActivity::class.java))
-            finish()
+        textView_login.setOnClickListener {
+           startActivity(Intent(this, Login::class.java))
         }
 
     }
@@ -29,11 +27,11 @@ class RegistrationActivity : AppCompatActivity() {
 
 
     private fun register(){
-        val fullName = txt_name.text.toString().trim()
+
         val email = txt_email.text.toString().trim()
         val password = txt_password.text.toString().trim()
         val confirmPassword = txt_confirm_password.text.toString().trim()
-        val phoneNumber = txt_phone.text.toString().trim()
+
 
 
         if ( checkEmpty(email,txt_email) || checkEmpty(password, txt_password) || checkEmpty(confirmPassword, txt_confirm_password)

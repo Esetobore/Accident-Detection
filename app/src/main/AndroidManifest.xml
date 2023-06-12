@@ -21,23 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SensorTest">
         <activity
-            android:name=".UserDetails"
-            android:exported="false" />
-        <activity
-            android:name=".ResetPassword"
-            android:exported="false" />
-        <activity
-            android:name=".Login"
-            android:exported="false" />
-        <activity
-            android:name=".RegistraationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Register"
-            android:exported="false"
-            android:label="@string/title_activity_register"
-            android:theme="@style/Theme.SensorTest.NoActionBar" />
-        <activity
             android:name=".Firebase.ProfileDetailsActivity"
             android:exported="false" />
         <activity
@@ -50,16 +33,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Firebase.DetailsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".Firebase.RegisterActivity"
-            android:exported="true" />
-        <activity
-            android:name=".Firebase.LoginActivity"
-            android:exported="true" />
-        <activity
             android:name=".MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Firebase.Login"
+            android:exported="true" />
+        <activity
+            android:name=".Firebase.RegistrationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Firebase.UserDetails"
+            android:exported="true" />
+        <activity
+            android:name=".Firebase.ResetPassword"
             android:exported="true" />
 
         <meta-data
