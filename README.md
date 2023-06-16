@@ -32,7 +32,7 @@ The Accident Detection Mobile Application is an Android app developed to prevent
 *  Once you click the link you are redirect and shown an app there you select a preferred phone size and click play (Recommend a bigger display for better experience).
 
 ## Contributions, Updated and Feedback
-* The project was initallly built by Hrit Saha but modified and rebuilt to essetially work as his own build had underlining app failures which where addressed and improved on and wil continue to make improvement on the project with the next step being a code migration from java to a more kotlin supported code base this wil be updated as more changes are made on the application.
+* The project was initallly built by Hrit Saha but modified and rebuilt to essetially work as his own build had underlining app failures which where addressed and improved on and wil continue to make improvement on the project with the next step being to restructure the backend of the application with real-time changes and updated libraries. This last sentence will be updated as more changes are made on the application.
 * If you have any suggestions, bug reports, or feature requests, please feel free to submit them via GitHub issues.
 
 
